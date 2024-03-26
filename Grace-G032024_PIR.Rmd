@@ -1,0 +1,50 @@
+---
+title: "Grace_PIR"
+author: "Ken Powers"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+```{r race identified from Summer PEIMS Resubmission}
+
+16_17_Basic <- R:\Specialists Transfer\Ken\GitHub\Grace-G032024_PIR\Summer PEIMS\16-17
+
+Student.Student.Basic.Information <- Student.Student.Basic.Information %>% 
+    mutate(AGG_ETHNICITY = case_when(
+      STU_ETHNIC_FLAG == 1 ~ "H", # If this flag is one, automatically Hispanic regardless of multiple races
+      rowSums(select(., 20:24) == 1) >= 2 ~ "T", # Check if more than 1 race 
+      RACE_AMER_IND_ALASK_FLAG == 1 ~ "I",
+      RACE_ASIAN_FLAG == 1 ~ "A",
+      RACE_BLACK_AFR_AMER_FLAG == 1 ~ "B",
+      RACE_HAW_PAC_ISL_FLAG == 1 ~ "P",
+      RACE_WHITE_FLAG == 1 ~ "W",
+      TRUE ~ "NONE")) # Look for any missed
+  
+table(Student_Basic$AGG_ETHNICITY) #check AGG_Ethnicity values for errors ("None")
+  
+  ```
+
