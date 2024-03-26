@@ -29,22 +29,75 @@ plot(pressure)
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
 
-```{r race identified from Summer PEIMS Resubmission}
+```{r 2016-2017 School Year}
+library(readxl)
+X16_17_Link_Demos_and_Discipline <- read_excel("C:/Users/P00118320/OneDrive - Houston Independent School District/PIR_Grace G032024 - Disciplinary data grades 6-12 from 17-19/1 Source Data/16-17_Link Demos and Discipline.xlsx")
+View(X16_17_Link_Demos_and_Discipline)
 
-16_17_Basic <- R:\Specialists Transfer\Ken\GitHub\Grace-G032024_PIR\Summer PEIMS\16-17
+X16_17_Link_Demos_and_Discipline$LCL_STU_ID <- as.numeric(as.character(X16_17_Link_Demos_and_Discipline$LCL_STU_ID))
 
-Student.Student.Basic.Information <- Student.Student.Basic.Information %>% 
-    mutate(AGG_ETHNICITY = case_when(
-      STU_ETHNIC_FLAG == 1 ~ "H", # If this flag is one, automatically Hispanic regardless of multiple races
-      rowSums(select(., 20:24) == 1) >= 2 ~ "T", # Check if more than 1 race 
-      RACE_AMER_IND_ALASK_FLAG == 1 ~ "I",
-      RACE_ASIAN_FLAG == 1 ~ "A",
-      RACE_BLACK_AFR_AMER_FLAG == 1 ~ "B",
-      RACE_HAW_PAC_ISL_FLAG == 1 ~ "P",
-      RACE_WHITE_FLAG == 1 ~ "W",
-      TRUE ~ "NONE")) # Look for any missed
-  
-table(Student_Basic$AGG_ETHNICITY) #check AGG_Ethnicity values for errors ("None")
-  
-  ```
 
+## Column named stuRct_ID in dataset studyKids
+
+length(unique(X16_17_Link_Demos_and_Discipline$LCL_STU_ID)) # 16139
+
+testIds1617 <- X16_17_Link_Demos_and_Discipline |> select(LCL_STU_ID) |>
+  mutate(step1 = log10(LCL_STU_ID)) |>
+  mutate(step2 = log10(LCL_STU_ID) * 10000000) |>
+  mutate(step3 = round((log10(LCL_STU_ID) * 10000000),0)) |>
+  mutate(step4 = (round((log10(LCL_STU_ID) * 10000000),0)) + 9) |>
+  rename(LCL_STU_ID2= step4)
+
+length(unique(testIds1617$LCL_STU_ID2))
+
+write.xlsx(testIds1617, 'C:\\Users\\P00118320\\OneDrive - Houston Independent School District\\PIR_Grace G032024 - Disciplinary data grades 6-12 from 17-19\\1 Source Data\\testIDs1617.xlsx')
+```
+
+```{r 2017-2018 School Year}
+library(readxl)
+X17_18_Link_Demos_and_Discipline <- read_excel("C:/Users/P00118320/OneDrive - Houston Independent School District/PIR_Grace G032024 - Disciplinary data grades 6-12 from 17-19/1 Source Data/17-18_Link Demos and Discipline.xlsx")
+View(X17_18_Link_Demos_and_Discipline)
+
+X17_18_Link_Demos_and_Discipline$LCL_STU_ID <- as.numeric(as.character(X17_18_Link_Demos_and_Discipline$LCL_STU_ID))
+
+
+## Column named stuRct_ID in dataset studyKids
+
+length(unique(X17_18_Link_Demos_and_Discipline$LCL_STU_ID)) # 16139
+
+testIds1718 <- X17_18_Link_Demos_and_Discipline |> select(LCL_STU_ID) |>
+  mutate(step1 = log10(LCL_STU_ID)) |>
+  mutate(step2 = log10(LCL_STU_ID) * 10000000) |>
+  mutate(step3 = round((log10(LCL_STU_ID) * 10000000),0)) |>
+  mutate(step4 = (round((log10(LCL_STU_ID) * 10000000),0)) + 11) |>
+  rename(LCL_STU_ID2= step4)
+
+length(unique(testIds1718$LCL_STU_ID2))
+
+write.xlsx(testIds1718, 'C:\\Users\\P00118320\\OneDrive - Houston Independent School District\\PIR_Grace G032024 - Disciplinary data grades 6-12 from 17-19\\1 Source Data\\testIDs1718.xlsx')
+```
+
+
+```{r 2018-2019 School Year}
+library(readxl)
+X18_19_Link_Demos_and_Discipline <- read_excel("C:/Users/P00118320/OneDrive - Houston Independent School District/PIR_Grace G032024 - Disciplinary data grades 6-12 from 17-19/1 Source Data/18-19_Link Demos and Discipline.xlsx")
+View(X18_19_Link_Demos_and_Discipline)
+
+X18_19_Link_Demos_and_Discipline$LCL_STU_ID <- as.numeric(as.character(X18_19_Link_Demos_and_Discipline$LCL_STU_ID))
+
+
+## Column named stuRct_ID in dataset studyKids
+
+length(unique(X18_19_Link_Demos_and_Discipline$LCL_STU_ID)) # 16139
+
+testIds1819 <- X18_19_Link_Demos_and_Discipline |> select(LCL_STU_ID) |>
+  mutate(step1 = log10(LCL_STU_ID)) |>
+  mutate(step2 = log10(LCL_STU_ID) * 10000000) |>
+  mutate(step3 = round((log10(LCL_STU_ID) * 10000000),0)) |>
+  mutate(step4 = (round((log10(LCL_STU_ID) * 10000000),0)) + 13) |>
+  rename(LCL_STU_ID2= step4)
+
+length(unique(testIds1819$LCL_STU_ID2))
+
+write.xlsx(testIds1819, 'C:\\Users\\P00118320\\OneDrive - Houston Independent School District\\PIR_Grace G032024 - Disciplinary data grades 6-12 from 17-19\\1 Source Data\\testIDs1819.xlsx')
+```
